@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interval 예제</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <button onclick="dataHandler()">setInterval</button>
+      <div
+        id="txt"
+        style="margin-top: 10px; border: 1px solid black; height: 300px"
+      ></div>
+      <div style="margin-top: 10px">
+        <button id="btnCnt">0</button>
+      </div>
+    </div>
+    <script>
+      let count = 0; // 반복되는 횟수 체크
+      let intervalId = null
+
+      async function dataHandler() {
+        if (intervalId) {
+          clearInterval(intervalId);
+        }
+        count = 0; // 초기화
+        document.getElementById("btnCnt").innerHTML = count;
+
+        intervalId = setInterval(async () => {
+          try {
+            const jsonData = await axios.get("/data/userList.json");
+            const serverResponse = await axios({
+              method: "post",
+              url: "/user/interval",
+              data: jsonData.data.users,
+              headers: {
+                "content-type": "application/json",
+              },
+            });
+            document.getElementById("txt").innerHTML = JSON.stringify(
+              serverResponse.data
+            );
+          } catch (error) {
+            document.getElementById("txt").innerHTML =
+              "응답 오류 발생: " + error.message;
+          }
+          count++;
+          document.getElementById("btnCnt").innerHTML = count;
+        }, 300);
+      }
+    </script>
+  </body>
+</html>

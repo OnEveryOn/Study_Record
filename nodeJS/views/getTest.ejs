@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>get 예제</title>
+  </head>
+  <body>
+    <!-- get 기본 실습 -->
+    <h2>get 실습</h2>
+    <h3>1. 기본</h3>
+    <div>
+      <h4>접속 여부: <%= check %></h4>
+    </div>
+    <br />
+    <!-- get 파라미터 실습 -->
+    <h3>2. 파라미터</h3>
+    <% if (param !== "") { %>
+    <div>
+      <h4>params: <%= param %></h4>
+    </div>
+    <% } else { %>
+    <div>
+      <h4>msg : <%= msg %></h4>
+    </div>
+    <% } %>
+    <br />
+    <!-- get 쿼리스트링 실습 -->
+    <h3>3. 쿼리스트링</h3>
+    <div>
+      <h4>id: <%= id %></h4>
+      <h4>name: <%= name %></h4>
+      <h4>title: <%= title %></h4>
+    </div>
+  </body>
+</html>

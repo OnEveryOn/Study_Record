@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>timeout 예제</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <div>
+        <button onclick="dataHandler()">setTimeout</button>
+      </div>
+      <div id="txt" style="border: 1px solid black; height: 300px">
+      </div>
+    </div>
+    <script>
+      async function dataHandler() {
+         try {
+          const jsonData = await axios.get("/data/userList.json");
+          const serverResponse = await axios ({
+            method : "post",            
+            url: "/user/timeout",
+            data: jsonData.data.users,
+            headers: {
+              "content-type": "application/json",
+            },
+          });
+
+          document.getElementById("txt").innerHTML = JSON.stringify(
+            serverResponse.data,
+            null,
+            2
+          );
+        } catch (error) {
+          document.getElementById("txt").innerHTML =
+            "응답에 실패하였습니다: " + error.message;
+        }
+      }
+    </script>
+  </body>
+</html>

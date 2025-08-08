@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise 예제</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <button id="pro" onclick="promiseHandler()">promise</button>
+    <button id="async" onclick="asyncHandler()">async</button>
+
+    <div>
+      <textarea id="txt" rows="10" cols="50">여기에 표시</textarea>
+    </div>
+
+    <script>
+      // promise
+      function promiseHandler() {
+        // 로컬 json파일 읽기
+        let response = axios.get("/data/userList.json").then((jsonResponse) => {
+          return axios({
+            method: "post",
+            url: "/user",
+            data: jsonResponse.data.users,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        });
+        response
+          .then((response) => {
+            console.log(response.data);
+            document.getElementById("txt").value = JSON.stringify(
+              response.data,
+              null,
+              2
+            );
+          })
+          .catch((error) => {
+            document.getElementById("txt").value =
+              "응답에 실패하였습니다: " + error.message;
+          });
+      }
+
+      // async
+      async function asyncHandler() {
+        try {
+          const jsonData = await axios.get("/data/userList.json");
+          const serverResponse = await axios ({
+            method : "post",            
+            url: "/user",
+            data: jsonData.data.users,
+            headers: {
+              "content-teype": "application/json",
+            },
+          });
+
+          document.getElementById("txt").value = JSON.stringify(
+            serverResponse.data,
+            null,
+            2
+          );
+        } catch (error) {
+          document.getElementById("txt").value =
+            "응답에 실패하였습니다: " + error.message;
+        }
+      }
+    </script>
+  </body>
+</html>
