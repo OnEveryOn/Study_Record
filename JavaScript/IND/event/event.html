@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container" style="border: 1px solid black;">
+      <ul id="lists">
+        <li>예시1</li>
+        <li>예시2</li>
+        <li>예시3</li>
+        <li>예시4</li>
+      </ul>
+    </div>
+    <script>
+      const container = document.getElementById("container");
+      const lists = document.getElementById("lists");
+
+      container.addEventListener("click", (e) => {
+        console.log("div 이벤트 발생");
+        e.target.style.background = "yellow";
+      }, {capture : true});
+
+      lists.addEventListener("click", (e) => {
+        console.log("ul 이벤트 발생");
+        e.stopPropagation();
+        e.target.style.background = "pink";
+      });
+    </script>
+  </body>
+</html>
