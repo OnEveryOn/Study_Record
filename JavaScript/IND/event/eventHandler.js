@@ -10,30 +10,68 @@
 let textarea = document.getElementById("contentsArea");
 
 let timeout;
-window.contents = [];
+let inputHandler;
+let lastContent = "";
 
+window.contents = {};
+
+const currentUser = "lee33@example.com";
+
+// timestamp
+function getTimeStamp() {
+  let now = new Date();
+  let timestamp = "";
+
+  let year = now.getFullYear().toString();
+  let month = "0" + (now.getMonth() + 1).toString();
+  let date = now.getDate().toString();
+  let time = now.getTime().toString();
+
+  timestamp = year + month + date + time;
+  return timestamp;
+}
+
+// 데이터 저장 함수
 function saveDataFunc(content) {
-  console.log(content);
+  if (!content || content.trim() === "") return;
+
+  console.log("입력한 내용: ", content);
+
+  if (lastContent === content) {
+    return;
+  }
 
   let savedData = {
     textValue: content,
-    timestamp: Date.now(),
+    timestamp: getTimeStamp(),
   };
-  window.contents.push(savedData);
+
+  // 사용자 여부에 따라 저장 여부
+  if (!window.contents[currentUser]) {
+    window.contents[currentUser] = [];
+  }
+
+  window.contents[currentUser].push(savedData);
+  lastContent = content; 
 }
 
-// keyup 이벤트 리스너 등록
-textarea.addEventListener("input", function () {
-  clearTimeout(timeout);
+// focus
+textarea.addEventListener("focus", () => {
+  inputHandler = function () {
+    clearTimeout(timeout);
 
-  // 사용자 입력 완료 후 3초 후에 저장
-  timeout = setTimeout(() => {
-    saveDataFunc(this.value);
-  }, 300);
+    // 사용자 입력 완료 후 3초 후에 저장
+    timeout = setTimeout(() => {
+      saveDataFunc(this.value);
+    }, 300);
+  };
+  textarea.addEventListener("input", inputHandler);
 });
 
 // focusout
-textarea.addEventListener("focusout", () => {
+textarea.addEventListener("blur", () => {
+  textarea.removeEventListener("input", inputHandler);
   clearTimeout(timeout);
-  saveDataFunc(textarea.value);
+  let updatedValue = "focusedData_" + textarea.value;
+  saveDataFunc(updatedValue);
 });
