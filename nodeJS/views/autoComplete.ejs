@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자동완성 실습</title>
+  </head>
+  <body>
+    <div
+      style="
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      <div style="margin-bottom: 15px;">
+        <h2>자동 완성 실습 과제</h2>
+      </div>
+      <div style="display: flex; margin-bottom: 30px;">
+        <div style="margin-right: 10px">
+          <input
+            style="
+              width: 400px;
+              height: 35px;
+              border: 1px solid rgb(182, 182, 182);
+              border-radius: 10px;
+              padding: 5px 10px;
+            "
+            id="ipt_search"
+          />
+        </div>
+      </div>
+      <div id="result-display" style="
+        width: 500px;
+        min-height: 300px;
+        border: 1px solid rgb(182, 182, 182);
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        margin-top: 20px;
+        font-size: 14px;
+      ">
+        검색 결과가 여기에 표시됩니다
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/autocomplete/uiControl.js"></script>
+  </body>
+</html>
