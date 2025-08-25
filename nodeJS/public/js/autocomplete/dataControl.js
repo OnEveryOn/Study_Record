@@ -1,12 +1,18 @@
-// data를 받아서 처리 후 처리 완료되었다고 알림
-// 사용자가 입력한 검색어와 같은 값을 찾아야 함
+
+/* 
+    1. web worker 내부에서는 axios를 사용할 수 없어 fetch를 사용
+    2. 서버에서 통신 받는 함수는 비동기 처리
+    3. 필터링 함수는 AI 도움을 받아서 처리
+        > 고민이 되었던 부분
+            > 데이터 필터링을 서버에서 처리할까 고민이 되었으나, 
+              웹 워커를 사용하는 이유가 스레드를 분산하기 위함이기 때문에 웹 워커에서 처리하도록 하였다. 
+*/
 self.onmessage = async (e) => {
     const searchTerm = e.data;
     console.log("Web Worker에서 받은 검색어:", searchTerm);
 
     // 서버 호출
     try {
-        console.log("서버에 요청 전송 중...");
         const response = await fetch('/autoComplete', {
             method: 'POST',
             headers: {
