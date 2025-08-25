@@ -42,6 +42,10 @@ self.onmessage = async (e) => {
 const filterData = (jsonData, searchTerm) => {
     const suggestions = [];
     
+    if (!jsonData || !searchTerm) {
+        return suggestions;
+    }
+    
     // 모든 가능한 키들을 수집
     const allKeys = [];
     
@@ -57,37 +61,57 @@ const filterData = (jsonData, searchTerm) => {
         });
     }
     
-    // 검색어와 매칭되는 키들 찾기
-    allKeys.forEach(key => {
-        if (key.toLowerCase().includes(searchTerm.toLowerCase())) {
-            // 해당 키의 값 가져오기
-            let value = null;
-            if (key.includes('.')) {
-                const keys = key.split('.');
-                let current = jsonData;
-                for (let k of keys) {
-                    if (current && current[k] !== undefined) {
-                        current = current[k];
-                    } else {
-                        current = null;
-                        break;
-                    }
+    // 검색어와 매칭되는 키들 찾기 (대소문자 구분 없이)
+    const searchLower = searchTerm.toLowerCase();
+    const matchedKeys = allKeys.filter(key => 
+        key.toLowerCase().includes(searchLower)
+    );
+    
+    // 매칭된 키들을 우선순위에 따라 정렬
+    matchedKeys.sort((a, b) => {
+        const aLower = a.toLowerCase();
+        const bLower = b.toLowerCase();
+        
+        // 정확히 일치하는 것을 우선
+        if (aLower === searchLower && bLower !== searchLower) return -1;
+        if (bLower === searchLower && aLower !== searchLower) return 1;
+        
+        // 시작하는 것을 우선
+        if (aLower.startsWith(searchLower) && !bLower.startsWith(searchLower)) return -1;
+        if (bLower.startsWith(searchLower) && !aLower.startsWith(searchLower)) return 1;
+        
+        // 길이가 짧은 것을 우선
+        return a.length - b.length;
+    });
+    
+    // 상위 10개만 반환
+    matchedKeys.slice(0, 10).forEach(key => {
+        // 해당 키의 값 가져오기
+        let value = null;
+        if (key.includes('.')) {
+            const keys = key.split('.');
+            let current = jsonData;
+            for (let k of keys) {
+                if (current && current[k] !== undefined) {
+                    current = current[k];
+                } else {
+                    current = null;
+                    break;
                 }
-                value = current;
-            } else {
-                value = jsonData[key];
             }
-            
-            if (value) {
-                // Web Worker에서 파싱된 정보 생성
-                const parsedInfo = parseValue(value);
-                suggestions.push({
-                    key: key,
-                    type: parsedInfo.type,
-                    description: parsedInfo.description,
-                    value: value
-                });
-            }
+            value = current;
+        } else {
+            value = jsonData[key];
+        }
+        
+        if (value) {
+            const parsedInfo = parseValue(value);
+            suggestions.push({
+                key: key,
+                type: parsedInfo.type,
+                description: parsedInfo.description,
+                value: value
+            });
         }
     });
     

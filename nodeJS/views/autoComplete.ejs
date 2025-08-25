@@ -4,6 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>자동완성 실습</title>
+    <style>
+      .autocomplete {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-top: none;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+      }
+      
+      .dropdown-item {
+        padding: 10px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .dropdown-item:hover {
+        background-color: #f0f0f0;
+      }
+      
+      .dropdown-item:last-child {
+        border-bottom: none;
+      }
+    </style>
   </head>
   <body>
     <div
@@ -15,11 +49,11 @@
         flex-direction: column;
       "
     >
-      <div style="margin-bottom: 15px;">
+      <div style="margin-bottom: 15px">
         <h2>자동 완성 실습 과제</h2>
       </div>
-      <div style="display: flex; margin-bottom: 30px;">
-        <div style="margin-right: 10px">
+      <div style="display: flex; margin-bottom: 30px">
+        <div class="autocomplete">
           <input
             style="
               width: 400px;
@@ -29,19 +63,25 @@
               padding: 5px 10px;
             "
             id="ipt_search"
+            placeholder="검색어를 입력하세요..."
           />
+          <div class="dropdown" id="dropdown"></div>
         </div>
       </div>
-      <div id="result-display" style="
-        width: 500px;
-        min-height: 300px;
-        border: 1px solid rgb(182, 182, 182);
-        border-radius: 10px;
-        padding: 10px;
-        background-color: #f9f9f9;
-        margin-top: 20px;
-        font-size: 14px;
-      ">
+      <div
+        id="result-display"
+        style="
+          width: 500px;
+          min-height: 300px;
+          border: 1px solid rgb(182, 182, 182);
+          border-radius: 10px;
+          padding: 10px;
+          background-color: #f9f9f9;
+          margin-top: 20px;
+          font-size: 14px;
+          white-space: pre-line;
+        "
+      >
         검색 결과가 여기에 표시됩니다
       </div>
     </div>
