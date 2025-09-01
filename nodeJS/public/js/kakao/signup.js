@@ -6,18 +6,79 @@ const ipt_pwChk = document.getElementById("ipt_pwChk");
 
 let message;
 
-btn_signup.addEventListener("click", function () {
-  clickHandler = () => {
-    // if(ipt_name.value === null || ipt_name.value === undefined || ipt_name.value === "") return;
-    try {
-      // 이름, 아이디 존재하고, 비밀번호 일치하면 회원가입
-      if (ipt_pw.value === ipt_pwChk.value) {
-        message = "회원가입이 정상적으로 완료되었습니다.";
-      }
-    } catch (error) {
-        console.error("에러 발생 : ", error)
+// 공통 함수
+const isEmpty = (value) => {
+  if (
+    value === "" ||
+    value === "undefined" ||
+    typeof value === "undefined" ||
+    value === null ||
+    value === undefined
+  ) {
+    return true;
+  }
+  return false; 
+};
+
+// clickHandler 함수 정의
+const clickHandler = async () => {
+  try {
+    
+    // 이름 필드 검증
+    if (isEmpty(ipt_name.value.trim())) {
+      ipt_name.focus();
+      return { success: false, message: "이름을 입력하세요" };
     }
 
-  };
-});
+    // 아이디 필드 검증
+    if (isEmpty(ipt_id.value.trim())) {
+      ipt_id.focus();
+      return { success: false, message: "아이디를 입력하세요" };
+    }
 
+    // 비밀번호 필드 검증
+    if (isEmpty(ipt_pw.value.trim())) {
+      ipt_pw.focus();
+      return { success: false, message: "비밀번호를 입력해주세요." };
+    }
+
+    // 비밀번호 확인 필드 검증
+    if (isEmpty(ipt_pwChk.value.trim())) {
+      ipt_pwChk.focus();
+      return { success: false, message: "비밀번호 확인을 입력해주세요." };
+    }
+    
+    if (ipt_pw.value.trim() !== ipt_pwChk.value.trim()) {
+      ipt_pwChk.focus();
+      return { success: false, message: "비밀번호가 일치하지 않습니다." };
+    }
+
+    
+    const result = await axios({
+      method: "POST",
+      url: "/api/signup",
+      data: {
+        userName: ipt_name.value.trim(),
+        userID: ipt_id.value.trim(),
+        userPW: ipt_pw.value.trim()
+      }
+    });
+    
+    if (result.data.success) {
+      window.location.href="/login"
+    } else {
+      console.log("회원가입 실패")
+      confirm(result.data.message)
+      return { success: false, message: result.data.message };
+    }
+    
+  } catch (error) {
+    console.error("에러 발생:", error);
+    alert("회원가입 중에 에러가 발생하였습니다.");
+    return { success: false, message: "회원가입 중에 에러가 발생하였습니다." };
+  }
+};
+
+// 기존 이벤트 리스너 제거 후 새로 추가
+btn_signup.removeEventListener("click", clickHandler);
+btn_signup.addEventListener("click", clickHandler);

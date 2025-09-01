@@ -1,8 +1,9 @@
 const kakaoLoginBtn = document.getElementById("kakaoLogin");
+const ipt_id = document.getElementById("loginId")
+const ipt_pw = document.getElementById("loginPassword")
+const btn_login = document.getElementById("btn_login")
 
-// 로그인을 동기적으로 처리하는 경우, 동시에 여러 사용자가 로그인을 시도하는 경우 마비가 올 것
 
-// 카카오 로그인으로 리다이렉션
 const kakaoLoginkHandler =  () => {
   const authURI = "http://localhost:9090/oauth";
 
@@ -18,4 +19,27 @@ const kakaoLoginkHandler =  () => {
   }
 };
 
+const loginHandler = async () => {
+  try {
+    const result = await axios({
+      method : "POST",
+      url : "/api/login",
+      data : {
+        id : ipt_id.value.trim(),
+        pw : ipt_pw.value.trim()
+      }
+    })
+
+   if(result.data.success){
+     localStorage.setItem("userID", result.data.userID)
+     localStorage.setItem("loginType", "regularLogin")
+      window.location.href = "/main"
+   }
+  } catch (error) {
+    console.log("로그인 실패 : ", error)
+  }
+}
+
+btn_login.addEventListener("click", loginHandler)
 kakaoLoginBtn.addEventListener("click", kakaoLoginkHandler);
+

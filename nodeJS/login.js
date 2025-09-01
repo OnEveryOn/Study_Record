@@ -19,17 +19,55 @@ const kakaoConfig = {
   KAKAO_CLIENT_ID: process.env.KAKAO_REST_API_KEY,
 };
 
-// 회원가입
+// 일반 사용자
+const users = [];
+
 app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// 로그인
+// 회원가입
+app.post("/api/signup", (req, res) => {
+  const { userName, userID, userPW } = req.body;
+  let isExisting = users.find((user) => user.id === userID);
+  if (isExisting) {
+    return res.json({ success: false, message: "이미 존재하는 아이디입니다." });
+  }
+  // 회원 추가
+  users.push({ id: userID, pw: userPW });
+  console.log(users)
+  return res.json({
+    success: true,
+    message: "회원가입이 정상적으로 완료되었습니다.",
+    userID: userID,
+    userPW: userPW,
+  });
+});
+
+// 로그인 페이지
 app.get("/login", (req, res) => {
   res.render("login", {
     kakaoJSkey: kakaoConfig.KAKAO_JSKEY,
   });
 });
+
+// 로그인 api 호출
+app.post("/api/login", (req, res) => {
+  const {id, pw} = req.body
+  const islogined = users.find(user => user.id === id && user.pw === pw)
+  if (islogined) {
+    res.json({
+      success: true,
+      message: "로그인에 성공하였습니다.",
+      userID: islogined.id
+    });
+  } else {
+    res.json({
+      success: false,
+      message: "아이디 또는 비밀번호가 일치하지 않습니다."
+    });
+  }
+})
 
 app.get("/main", (req, res) => {
   res.render("eventControl", {
@@ -93,6 +131,7 @@ app.post("/profile", async (req, res) => {
     const userInfo = user.data;
     const kakao_account = userInfo.kakao_account.profile;
     res.json({
+      success : true,
       userID: user.data.id,
       userNickname: kakao_account.nickname,
     });
@@ -102,7 +141,7 @@ app.post("/profile", async (req, res) => {
   }
 });
 
-app.post("/logout", async (req, res) => {
+app.post("/kakaoLogout", async (req, res) => {
   try {
     const token = req.cookies.access_token;
     if (!token) return;
@@ -124,12 +163,15 @@ app.post("/logout", async (req, res) => {
       secure: false,
     });
 
-
     res.send({ success: true });
   } catch (error) {
     console.log("로그아웃 중 에러 발생 :", error);
   }
 });
+
+app.post("/api/logout", (req,res) => {
+
+})
 
 app.listen(port, () => {
   console.log(`${port}에서 듣고 있습니다.`);

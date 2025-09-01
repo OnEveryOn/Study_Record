@@ -22,13 +22,21 @@ let userNickname;
 
 window.onload = async () => {
   try {
+    // 기본값으로 localStorage 사용
+    userNickname = localStorage.getItem("userID");
+    if(userNickname) return
+
+    // 서버에서 최신 정보 시도
     const result = await axios({
       method: "POST",
       url: "/profile",
       withCredentials: true,
     });
 
-    userNickname = JSON.stringify(result.data.userNickname);
+    if (result.data.success && result.data.userNickname) {
+      userNickname = result.data.userNickname;
+      console.log("서버에서 업데이트된 닉네임:", userNickname);
+    }
   } catch (error) {
     console.log("사용자 정보 조회 실패 : ", error);
   }
@@ -88,24 +96,34 @@ textarea.addEventListener("blur", () => {
   saveDataFunc(updatedValue);
 });
 
-logoutButton.addEventListener("click", async () => {
+const logoutHandler =  async () => {
   try {
-    // 1. 서버에서 access/refresh token 쿠키 삭제
-    const result = await axios.post("/logout", {}, { withCredentials: true });
-    
-    if(result.data.success){
+
+    if(!confirm("로그아웃하시겠습니까?")){
+      return;
+    }
+    const loginType = localStorage.getItem("loginType")
+
+    // 일반 로그아웃
+    if(loginType === "regularLogin"){
+      // 로컬 스토리지 삭제
+      localStorage.clear();
       window.location.href = "/login";
     }
     
+    // 카카오 토큰 삭제
+    const result = await axios.post(
+      "/kakaoLogout",
+      {},
+      { withCredentials: true }
+    );
 
-    // 2. 브라우저 카카오 계정 로그아웃
-    // if (typeof Kakao !== "undefined") {
-    //   Kakao.Auth.logout(() => {
-    //     console.log("카카오 계정 로그아웃 완료");
-    //   });
-    // } 
-
+    if (result.data.success) {
+      window.location.href = "/login";
+    }
   } catch (error) {
     console.error("로그아웃 실패:", error);
   }
-});
+}
+
+logoutButton.addEventListener("click", logoutHandler);

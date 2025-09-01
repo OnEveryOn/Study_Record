@@ -17,20 +17,9 @@
         style="width: 1000px; height: 400px"
       ></textarea>
       <div>
-        <button id="btn_logout" type="button">로그아웃</button>
+        <button style="background-color: rgb(240, 224, 255); border:none; margin-top:20px; width: 200px; height: 40px; padding:5px 10px; " id="btn_logout" type="button">로그아웃</button>
       </div>
     </div>
-    <script
-      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.6/kakao.min.js"
-      integrity="sha384-WAtVcQYcmTO/N+C1N+1m6Gp8qxh+3NlnP7X1U7qP6P5dQY/MsRBNTh+e1ahJrkEm"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      // 서버에서 전달받은 키 사용
-      if (typeof Kakao !== "undefined" && !Kakao.isInitialized()) {
-        Kakao.init("<%= kakaoJSkey %>");
-      }
-    </script>
     <script src="./js/kakao/eventHandler.js"></script>
   </body>
 </html>
