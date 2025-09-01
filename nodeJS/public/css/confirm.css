@@ -1,0 +1,55 @@
+   * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
+
+   body {
+       font-family: 'Malgun Gothic', sans-serif;
+       background-color: #f8f9fa;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       min-height: 100vh;
+       padding: 20px;
+   }
+
+   .popup-container {
+       background: white;
+       border-radius: 8px;
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+       padding: 30px 40px;
+       text-align: center;
+       max-width: 350px;
+       width: 100%;
+   }
+
+   .popup-title {
+       font-size: 18px;
+       font-weight: bold;
+       color: #333;
+       margin-bottom: 20px;
+   }
+
+   .popup-message {
+       font-size: 14px;
+       color: #666;
+       line-height: 1.5;
+       margin-bottom: 25px;
+   }
+
+   .btn_close {
+       background-color: #007bff;
+       color: white;
+       border: none;
+       padding: 10px 20px;
+       border-radius: 5px;
+       font-size: 14px;
+       cursor: pointer;
+       min-width: 80px;
+       transition: background-color 0.2s ease;
+   }
+
+   .btn_close:hover {
+       background-color: #0056b3;
+   }

@@ -3,6 +3,10 @@ import express from "express";
 // 페이지 요청 라우팅
 const router = express.Router();
 
+const app = express()
+app.use(express.static("public"));
+
+
 router.get("/", (req, res) => {
   res.render("main");
 });
@@ -22,6 +26,8 @@ router.get("/user/interval", (req, res) => {
 router.get("/user/timeout", (req, res) => {
   res.render("timeOut");
 });
+
+
 
 /* get 실습 */
 // query 실습
