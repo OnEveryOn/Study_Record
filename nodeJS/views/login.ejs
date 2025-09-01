@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인</title>
-    <link rel="stylesheet" href="/css/login.css" />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-    <div class="login-container">
-      <h2 class="login-title">로그인</h2>
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>로그인</title>
+   <link rel="stylesheet" href="/css/login.css" />
+   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+   <div class="login-container">
+       <h2 class="login-title">로그인</h2>
+       
+       <div class="login-inputs">
+           <div class="input-group">
+               <input
+                   type="text"
+                   id="loginId"
+                   class="input-field"
+                   placeholder="아이디를 입력하세요"
+               />
+           </div>
+           
+           <div class="input-group">
+               <input
+                   type="password"
+                   id="loginPassword"
+                   class="input-field"
+                   placeholder="비밀번호를 입력하세요"
+               />
+           </div>
+           
+           <button type="button" class="login-btn" id="btn_login">로그인</button>
+       </div>
+       
+       <button type="button" class="kakao-btn" id="kakaoLogin">
+           카카오 로그인
+       </button>
+       
+       <div class="signup-link">
+           <a href="/signup">회원가입</a>
+       </div>
+   </div>
 
-      <form id="loginForm">
-        <div class="input-group">
-          <input
-            type="text"
-            id="loginId"
-            class="input-field"
-            placeholder="아이디를 입력하세요"
-            required
-          />
-        </div>
-
-        <div class="input-group">
-          <input
-            type="password"
-            id="loginPassword"
-            class="input-field"
-            placeholder="비밀번호를 입력하세요"
-            required
-          />
-        </div>
-
-        <button type="submit" class="login-btn" id="btn_login">로그인</button>
-      </form>
-
-      <button type="button" class="kakao-btn" id="kakaoLogin">
-        카카오 로그인
-      </button>
-
-      <div class="signup-link">
-        <a href="/signup">회원가입</a>
-      </div>
-    </div>
-    <script
-      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.6/kakao.min.js"
-      integrity="sha384-WAtVcQYcmTO/N+C1N+1m6Gp8qxh+3NlnP7X1U7qP6P5dQY/MsRBNTh+e1ahJrkEm"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      // 서버에서 전달받은 키 사용
-      if (typeof Kakao !== "undefined" && !Kakao.isInitialized()) {
-        Kakao.init("<%= kakaoJSkey %>"); 
-      }
-    </script>
-    <script type="text/javascript" src="/js/kakao/login.js"></script>
-  </body>
+   <script
+       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.6/kakao.min.js"
+       integrity="sha384-WAtVcQYcmTO/N+C1N+1m6Gp8qxh+3NlnP7X1U7qP6P5dQY/MsRBNTh+e1ahJrkEm"
+       crossorigin="anonymous"
+   ></script>
+   
+   <script>
+       if (typeof Kakao !== "undefined" && !Kakao.isInitialized()) {
+           Kakao.init("<%= kakaoJSkey %>");
+       }
+   </script>
+   
+   <script type="text/javascript" src="/js/kakao/login.js"></script>
+</body>
 </html>

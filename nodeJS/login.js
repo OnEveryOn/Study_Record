@@ -169,10 +169,6 @@ app.post("/kakaoLogout", async (req, res) => {
   }
 });
 
-app.post("/api/logout", (req,res) => {
-
-})
-
 app.listen(port, () => {
   console.log(`${port}에서 듣고 있습니다.`);
 });

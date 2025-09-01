@@ -13,50 +13,72 @@
         <div style="margin-bottom: 25px">
           <span style="font-size: 25px; font-weight: bold">회원가입</span>
         </div>
-        <form>
+
+        <div class="signup-inputs">
           <!-- name -->
           <div class="ipt_Container">
             <div class="ipt_fields">
               <label>이름<span class="required">*</span></label>
             </div>
             <div class="ipt_box">
-              <input id="ipt_name" required/>
+              <input
+                id="ipt_name"
+                type="text"
+                placeholder="이름을 입력하세요"
+              />
             </div>
           </div>
+
           <!-- id -->
           <div class="ipt_Container">
             <div class="ipt_fields">
               <label>아이디<span class="required">*</span></label>
             </div>
             <div class="ipt_box">
-              <input id="ipt_id" required/>
+              <input
+                id="ipt_id"
+                type="text"
+                placeholder="아이디를 입력하세요"
+              />
             </div>
           </div>
+
           <!-- password -->
           <div class="ipt_Container">
             <div class="ipt_fields">
               <label>비밀번호<span class="required">*</span></label>
             </div>
             <div class="ipt_box">
-              <input id="ipt_pw" required/>
+              <input
+                id="ipt_pw"
+                type="password"
+                placeholder="비밀번호를 입력하세요"
+              />
             </div>
           </div>
+
           <!-- password check -->
           <div class="ipt_Container">
             <div class="ipt_fields">
               <label>비밀번호 확인<span class="required">*</span></label>
             </div>
             <div class="ipt_box">
-              <input id="ipt_pwChk" required/>
+              <input
+                id="ipt_pwChk"
+                type="password"
+                placeholder="비밀번호를 다시 입력하세요"
+              />
             </div>
           </div>
+
           <!-- 회원가입 버튼 -->
           <div id="btn_container">
-            <button id="btn_signup" type="button" onclick="">회원가입</button>
+            <button id="btn_signup" type="button">회원가입</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
+
     <script type="text/javascript" src="/js/kakao/signup.js"></script>
   </body>
 </html>

@@ -26,7 +26,6 @@ window.onload = async () => {
     userNickname = localStorage.getItem("userID");
     if(userNickname) return
 
-    // 서버에서 최신 정보 시도
     const result = await axios({
       method: "POST",
       url: "/profile",
@@ -35,7 +34,6 @@ window.onload = async () => {
 
     if (result.data.success && result.data.userNickname) {
       userNickname = result.data.userNickname;
-      console.log("서버에서 업데이트된 닉네임:", userNickname);
     }
   } catch (error) {
     console.log("사용자 정보 조회 실패 : ", error);
@@ -102,6 +100,7 @@ const logoutHandler =  async () => {
     if(!confirm("로그아웃하시겠습니까?")){
       return;
     }
+    // loginType에 따른 로그아웃 처리
     const loginType = localStorage.getItem("loginType")
 
     // 일반 로그아웃
