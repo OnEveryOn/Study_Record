@@ -9,7 +9,7 @@
         position: relative;
         display: inline-block;
       }
-      
+
       .dropdown {
         display: none;
         position: absolute;
@@ -23,17 +23,17 @@
         overflow-y: auto;
         z-index: 1000;
       }
-      
+
       .dropdown-item {
         padding: 10px 15px;
         cursor: pointer;
         border-bottom: 1px solid #eee;
       }
-      
+
       .dropdown-item:hover {
         background-color: #f0f0f0;
       }
-      
+
       .dropdown-item:last-child {
         border-bottom: none;
       }
@@ -68,19 +68,18 @@
           <div class="dropdown" id="dropdown"></div>
         </div>
       </div>
-      <div
+      <textarea
         id="result-display"
         style="
-          width: 500px;
-          min-height: 500px;
+          height: 200px;
+          width: 400px;
           padding: 10px;
           margin-top: 20px;
           font-size: 14px;
           white-space: pre-line;
         "
       >
-        검색 결과가 여기에 표시됩니다
-      </div>
+      </textarea>
     </div>
     <script type="text/javascript" src="/js/autocomplete/uiControl.js"></script>
   </body>

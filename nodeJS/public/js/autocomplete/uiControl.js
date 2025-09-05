@@ -1,12 +1,79 @@
 /*  
-  화살표 함수는 this가 상위 스코프 
-  이벤트리스너가 제거가 되었는데도 inputHandler가 동작함 (비동기로 실행) > 플래그 활용하여 컨트롤
+화살표 함수는 this가 상위 스코프 
+이벤트리스너가 제거가 되었는데도 inputHandler가 동작함 (비동기로 실행) > 플래그 활용하여 컨트롤
 */
 
+let resultDisplay = document.getElementById("result-display");
 let inputBox = document.getElementById("ipt_search");
 let timeout;
-let isActive = true;
 let worker;
+let resizeObserver = null;
+
+/* 
+  가장 일반적인 방법
+  화면 로딩 최초에 옵저버가 등록되고 페이지 unload 직전에 연결 해제
+*/
+let prevSize = { width: 0, height: 0 };
+let isFirstTime = true;
+let disconnectHandler;
+
+const initialinitResizeObserver = () => {
+  if (!resizeObserver) {
+    resizeObserver = new ResizeObserver((entries) => {
+      console.log("옵저버 등록");
+      entries.forEach((entry) => {
+        const { width, height } = entry.contentRect;
+
+        // 최초 로딩된 시점인지 확인
+        if (isFirstTime) {
+          isFirstTime = false;
+          prevSize = { width: width, height: height };
+        }
+
+        // log
+        console.group("sizeCheck");
+        console.log("이전 크기 : ", prevSize.width, prevSize.height);
+        console.log("현재 크기 : ", width, height);
+        console.groupEnd("sizeCheck");
+
+        // 크기에 따라 배경색 전환 함수 실행
+        handleObserver(width, height);
+
+        prevSize = { width: width, height: height };
+      });
+    });
+  }
+
+  resizeObserver.observe(resultDisplay);
+};
+
+const handleObserver = (width, height) => {
+  if (width > prevSize.width || height > prevSize.height) {
+    resultDisplay.style.backgroundColor = "yellow";
+  } else if (width < prevSize.width || height < prevSize.height) {
+    resultDisplay.style.backgroundColor = "green";
+  }
+};
+
+// 최초 옵저버 등록
+initialinitResizeObserver();
+
+window.addEventListener("pageshow", (e) => {
+  if (e.persisted) {
+    console.log("페이지 복원 - ResizeObserver 재시작");
+    initialinitResizeObserver();
+  }
+});
+
+disconnectHandler = () => {
+  console.log("resizeObserver 통신 차단");
+  if (resizeObserver) resizeObserver.disconnect();
+};
+// 1회 실행으로 실행 후 제거
+window.addEventListener("beforeunload", disconnectHandler);
+
+// 활성화 여부
+let isActive = true;
 
 if (window.Worker) {
   // data 처리할 worker 파일
@@ -19,10 +86,10 @@ if (window.Worker) {
 
     // 결과를 화면에 표시
     displayResults(processedData);
-    
+
     if (processedData.result && processedData.result.suggestions) {
       const suggestions = processedData.result.suggestions;
-      showDropdown(suggestions.map(item => item.key));
+      showDropdown(suggestions.map((item) => item.key));
     }
   };
 
@@ -49,7 +116,7 @@ const inputHandler = (e) => {
         console.log("Web Worker에 메시지 전송:", inputValue);
         worker.postMessage(inputValue);
       }
-    }, 300); 
+    }, 300);
   }
 };
 
@@ -63,7 +130,7 @@ const blurHandler = (e) => {
 
 const focusHandler = (e) => {
   console.log("input 이벤트리스너 등록");
-
+  isActive = true;
   // 등록 전에 제거
   inputBox.removeEventListener("input", inputHandler);
   inputBox.addEventListener("input", inputHandler);
@@ -71,7 +138,6 @@ const focusHandler = (e) => {
 
 // 결과를 화면에 표시하는 함수
 const displayResults = (data) => {
-  const resultDisplay = document.getElementById("result-display");
   if (resultDisplay) {
     if (data.error) {
       resultDisplay.textContent = `에러: ${data.error}`;
