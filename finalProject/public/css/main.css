@@ -1,0 +1,52 @@
+body {
+    background-image: url('../image/chat.jpg'), linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4));
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-container {
+    width: 60px;
+    height: 60px;
+}
+
+.chat-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.button-container {
+    width: 300px;
+    height: 60px;
+}
+
+#btn_chat {
+    font-size: 15px;
+    padding: 5px 10px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(240, 255, 255, 0.603);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#btn_chat:hover {
+    background-color: rgba(240, 255, 255, 0.8);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}

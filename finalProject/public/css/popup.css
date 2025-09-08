@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.popup-container {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.popup-content {
+    padding: 40px 30px 30px 30px;
+    text-align: center;
+}
+
+.popup-message {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333333;
+    margin-bottom: 40px;
+    word-break: keep-all;
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.popup-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.cancel-btn {
+    background: #f5f5f5;
+    color: #666666;
+    border: 1px solid #e0e0e0;
+}
+
+.cancel-btn:hover {
+    background: #ebebeb;
+    color: #555555;
+}
+
+.confirm-btn {
+    background: #333333;
+    color: #ffffff;
+}
+
+.confirm-btn:hover {
+    background: #555555;
+}
+
+.popup-btn:active {
+    transform: scale(0.95);
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+    .popup-content {
+        padding: 30px 20px 20px 20px;
+    }
+    
+    .popup-message {
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .popup-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .popup-btn {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}

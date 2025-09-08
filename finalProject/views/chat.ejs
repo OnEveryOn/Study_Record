@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="/css/chat.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="chat-container">
+      <!-- 채팅 헤더 -->
+      <div class="chat-header">
+        <div class="header-left">
+          <button class="back-btn">←</button>
+          <h3 class="chat-title">Chat</h3>
+        </div>
+        <div class="header-right">
+          <button id="logout-btn">로그아웃</button>
+        </div>
+      </div>
+
+      <!-- 채팅 메시지 영역 -->
+      <div class="chat-messages">
+        <div class="message received">
+          <div class="message-bubble">안녕하세요</div>
+        </div>
+
+        <div class="message sent">
+          <div class="message-bubble">안녕하세요</div>
+        </div>
+
+        <div class="message received">
+          <div class="message-bubble">오늘 날씨가 정말 좋네요</div>
+        </div>
+
+        <div class="message sent">
+          <div class="message-bubble">맞아요</div>
+        </div>
+      </div>
+
+      <!-- 메시지 입력 영역 -->
+      <div class="chat-input">
+        <input type="text" placeholder="메시지 입력..." />
+        <button class="send-btn">전송</button>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/chat.js"></script>
+  </body>
+</html>
