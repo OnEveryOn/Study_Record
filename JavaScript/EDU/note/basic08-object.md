@@ -318,6 +318,9 @@ console.log(per instanceof Person) // true
 ### 프로토타입이란?
 > JavaScript 객체가 다른 객체로부터 기능을 상속받을 수 있게 하는 메커니즘이다. 모든 함수는 prototype 속성을 가지며, 이를 통해 메서드를 공유할 수 있다.
 - 프로토타입 사용 시 모든 인스턴스가 같은 메서드를 공유한다.
+
+> Person.prototype: 생성자 함수의 prototype 속성 <br/> person.\_\_proto\_\_: 인스턴스의 프로토타입 (Person.prototype과 같음)
+
 ```javascript
 // 1. Array.prototype.sum - 배열의 모든 숫자 합계
 Array.prototype.sum = function () {
@@ -395,3 +398,4 @@ console.log(dog.speak()); // "멍멍이이 멍멍하고 짖습니다."
 console.log(dog.bark()); // "멍멍이이 멍멍 짖습니다."
 console.log(dog.move()); // "멍멍이이 움직입니다." (상속받은 메서드)
 ``` 
+

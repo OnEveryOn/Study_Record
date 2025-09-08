@@ -25,17 +25,17 @@ Array.prototype.sum = function () {
 };
 
 // 2. Array.prototype.average - 배열의 평균값
-Array.prototype.average = function() {
-    return this.sum() / this.length
-}
+Array.prototype.average = function () {
+  return this.sum() / this.length;
+};
 // 3. Array.prototype.unique - 중복 제거
 Array.prototype.unique = function () {
-    return Array.from(new Set(this))
-}
+  return Array.from(new Set(this));
+};
 // 4. Array.prototype.shuffle - 배열 섞기
-Array.prototype.shuffle = function() {
-    return this.sort(() => Math.random() - 0.5)
-}
+Array.prototype.shuffle = function () {
+  return this.sort(() => Math.random() - 0.5);
+};
 
 // 테스트
 const numbers = [1, 2, 3, 4, 5, 2, 3];
@@ -63,12 +63,12 @@ Animal.prototype.move = function () {
 // Dog 생성자 함수 (Animal을 상속)
 function Dog(name, breed) {
   // Animal 생성자 호출
-  Animal.call(this, name)
-  this.breed = breed
+  Animal.call(this, name);
+  this.breed = breed;
 }
 
 // Dog가 Animal을 상속하도록 설정
-Dog.prototype = Object.create(Animal.prototype)
+Dog.prototype = Object.create(Animal.prototype);
 Dog.prototype.constructor = Dog;
 
 // Dog만의 메서드 추가
@@ -122,4 +122,3 @@ console.log(admin.getRole()); // super
 console.log(admin instanceof Admin); // true
 console.log(admin instanceof User); // true
 console.log(admin.constructor === Admin); // true
-
