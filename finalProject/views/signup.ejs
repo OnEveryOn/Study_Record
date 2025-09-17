@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>회원가입</title>
     <link rel="stylesheet" href="/css/signup.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
@@ -18,13 +18,20 @@
           <!-- name -->
           <div class="ipt_Container">
             <div class="ipt_fields">
-              <label>이름<span class="required">*</span></label>
+              <label
+                >이름<span class="required" 
+                  >*</span
+                ></label
+              >
             </div>
             <div class="ipt_box">
               <input
+                class="ipt_field"
                 id="ipt_name"
                 type="text"
                 placeholder="이름을 입력하세요"
+                minlength="2"
+                maxlength="4"
               />
             </div>
           </div>
@@ -32,13 +39,14 @@
           <!-- id -->
           <div class="ipt_Container">
             <div class="ipt_fields">
-              <label>아이디<span class="required">*</span></label>
+              <label>이메일<span class="required">*</span></label>
             </div>
             <div class="ipt_box">
               <input
-                id="ipt_id"
-                type="text"
-                placeholder="아이디를 입력하세요"
+                class="ipt_field"
+                id="ipt_email"
+                type="email"
+                placeholder="이메일을 입력하세요"
               />
             </div>
           </div>
@@ -50,9 +58,12 @@
             </div>
             <div class="ipt_box">
               <input
+                class="ipt_field"
                 id="ipt_pw"
                 type="password"
                 placeholder="비밀번호를 입력하세요"
+                minlength="4"
+                maxlength="12"
               />
             </div>
           </div>
@@ -64,9 +75,12 @@
             </div>
             <div class="ipt_box">
               <input
+                class="ipt_field"
                 id="ipt_pwChk"
                 type="password"
                 placeholder="비밀번호를 다시 입력하세요"
+                minlength="4"
+                maxlength="12"
               />
             </div>
           </div>
@@ -82,6 +96,6 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="/js/signup.js"></script>
+    <script type="module" src="/js/signup.js"></script>
   </body>
 </html>

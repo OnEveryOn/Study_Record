@@ -58,18 +58,12 @@ const handleObserver = (width, height) => {
 // 최초 옵저버 등록
 initialinitResizeObserver();
 
-window.addEventListener("pageshow", (e) => {
-  if (e.persisted) {
-    console.log("페이지 복원 - ResizeObserver 재시작");
-    initialinitResizeObserver();
-  }
-});
-
 disconnectHandler = () => {
   console.log("resizeObserver 통신 차단");
   if (resizeObserver) resizeObserver.disconnect();
 };
-// 1회 실행으로 실행 후 제거
+
+
 window.addEventListener("beforeunload", disconnectHandler);
 
 // 활성화 여부
@@ -181,7 +175,7 @@ const showDropdown = (items) => {
 
   dropdown.innerHTML = items
     .map((item) => `<div class="dropdown-item">${item}</div>`)
-    .join("");
+    .join(""); 
 
   dropdown.style.display = "block";
 

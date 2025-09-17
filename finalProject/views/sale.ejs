@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>운동화 - 상품 정보</title>
+    <link rel="stylesheet" href="/css/sale.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <% for(let i = 0; i < 6; i++) { %>
+      <div
+        class="product-container"
+        data-name="<%= product.name %>"
+        data-price="<%= product.price %>"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop"
+          alt="<%= product.name %>"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h1 class="product-name"><%= product.name %></h1>
+          <div class="product-price">
+            <%= product.price.toLocaleString() %> <span>원</span>
+          </div>
+        </div>
+        <button class="buy-button">구매하기</button>
+      </div>
+      <% } %>
+    </div>
+    <script type="text/javascript" src="/js/sale.js"></script>
+  </body>
+</html>

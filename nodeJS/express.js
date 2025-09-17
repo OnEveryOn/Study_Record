@@ -18,7 +18,6 @@ app.use(express.static("public"));
 */
 app.set("view engine", "ejs");
 
-// json 요청을 보내기 위함
 app.use('/', indexRouter)
 
 /* 

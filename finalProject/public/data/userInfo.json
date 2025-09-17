@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "loginType": "regular",
+      "name": "김민정",
+      "email": "alswjd1234@naver.com",
+      "password": "1234"
+    },
+    {
+      "id": 2,
+      "loginType": "kakao",
+      "name": "유희정",
+      "email": "gmlwjd971206@gmail.com",
+      "refresh_token": "0fLw96ptCYPkBPueUWBim_NYLM4mzrudAAAAAgoXACcAAAGZUJvI-6-b-4epDDEo",
+      "refresh_token_maxAge": 5183999000
+    },
+    {
+      "id": 3,
+      "loginType": "kakao",
+      "name": "한경자",
+      "email": "lyn0422@naver.com",
+      "refresh_token": "-0x8lbjXKEbLDEEdcPoN9ysemOeR0g-kAAAAAgoNH9EAAAGZU6Ig_RamEcnPBcmr",
+      "refresh_token_maxAge": 5183999000
+    },
+    {
+      "id": 4,
+      "loginType": "kakao",
+      "name": "허윤석",
+      "email": "ys7773@nate.com",
+      "refresh_token": "p3_eh0jarfMg-WKWWJV0S_5oz2BCDEjBAAAAAgoNFN0AAAGZVUpaLP8D-j8FVvr5",
+      "refresh_token_maxAge": 5183999000
+    }
+  ]
+}
