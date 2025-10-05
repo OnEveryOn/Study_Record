@@ -1,7 +1,7 @@
 import { appendChildrenList, makeDOMwithProperties } from "../utils/dom.js";
 import { getCartToggleButton } from "./cartToggleButton.js";
 
-export const getProductCard = (productInfo) => {
+export const getProductCard = (productInfo, removeCartCallback) => {
   const { imgSrc, name, discountPercent, price, originalPrice } = productInfo;
   const section = document.getElementsByClassName("product-list-section")[0];
 
@@ -19,7 +19,7 @@ export const getProductCard = (productInfo) => {
     alt: name,
   });
 
-  const cartToggleBtn = getCartToggleButton(productInfo);
+  const cartToggleBtn = getCartToggleButton(productInfo, removeCartCallback);
 
   appendChildrenList(productImageCon, [productImage, cartToggleBtn]);
   // Node.insertBefore

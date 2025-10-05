@@ -1,7 +1,7 @@
 import { makeDOMwithProperties } from "../utils/dom.js";
 import { getProductCard } from "./productCard.js";
 
-export const getProductList = (productInfoList) => {
+export const getProductList = (productInfoList, removeCartCallback) => {
     if(productInfoList === null || !Array.isArray(productInfoList)) return;
 
   const productListCon = makeDOMwithProperties("div", {
@@ -12,7 +12,7 @@ export const getProductList = (productInfoList) => {
     productListCon.appendChild(
       getProductCard({
         ...productInfo, // spread 문법
-      })
+      }, removeCartCallback)
     );
   });
 
